@@ -13,34 +13,48 @@ MAIN THESIS PROJECT FILE
     - After reading the whole file, print for each (src_ip, dst_ip) pair how many distinct ports were contacted.
     - You should see that 10.0.0.5 -> 10.0.0.t10 has many ports, while others have fewer.
 
-3. Turn counts into a simple alert rule
+3. Turn counts into a simple alert rule DONE
     - Goal: first detection behavior.
     - For each (src_ip, dst_ip) pair, if the count exceeds the threshold, print an alert like:
         ALERT: possible port scan from 10.0.0.5 to 10.0.0.10 (7 ports)
     - That gives you a minimal IDS prototype on synthetic logs.
 
-Step 1: Open Log file, read and assign the relevant information to variables
-# # Open Log file, read and assign the relevant information to variables
-# with open("data/traffic_dev.log", "r") as file:
-#     for line in file:
-#         splitLine = line.rstrip("\n").split(",")
-#         timestamp = splitLine[0]
-#         src_ip = splitLine[1]
-#         dst_ip = splitLine[2]
-#         dst_port = splitLine[3]
-#         print(f"SRC {src_ip} -> DST {dst_ip}:{dst_port} at {timestamp}")
+COUNTING DISTINCT PORTS - done
+Step 1: Open Log file, check if the file is updated, and read and assign the relevant information to variables
 Step 2: Counting for distinct ports
 Step 3: Create an alert rule
+
+REMEMBERING FILE POSITION TO NOT HAVE DUPLICATE ALERTS - done
+Step 1: tell() method is used to figure out the position in the file, and it is saved to state.json at the end of every search.
+step 2: seek() method is used to start reading the log file from the last location beginning of the search.
+- This way, we don't get duplicate alerts and the IDS doesn't re-read the same lines it already did.
+
+RUNS IN INTERVALS FUNCTIONALITY - done
+
+COUNTING TOTAL CONNECTIONS PER src_ip
 """
 import argparse
+import time
 
-def analyze_file(path: str, port_scan_threshold: int = 5):
-    """Step 2: Counting for distinct ports"""
+def analyze_file(path: str, port_scan_threshold: int = 5, state_path: str = "data/state.json"):
+
+    # Read last position
+    with open(state_path, "r") as f: # Read last position
+        line = f.readline().strip()
+        previous_position = int(line) if line else 0
+
+    # Opens file, checks if it's updated and parses data logs
     port_count_dict = {}
-
     with open(path, "r") as file:
+        file.seek(previous_position) # Start from saved offset
+
+        # Parses log file into a dictionary
         for line in file:
             split_line = line.rstrip("\n").split(",")
+            # skip empty / bad lines
+            if len(split_line) != 4:
+                continue
+
             timestamp = split_line[0]
             src_ip = split_line[1]
             dst_ip = split_line[2]
@@ -50,7 +64,14 @@ def analyze_file(path: str, port_scan_threshold: int = 5):
             else:
                 port_count_dict[src_ip, dst_ip].add(int(dst_port))
 
-    """Step 3: Create an alert rule"""
+        # Variable for last position read in the log file
+        offset = file.tell()
+
+    # Write the last position to state.json
+    with open("data/state.json", "w") as f:
+        f.write(str(offset))
+
+    # Analyzes and creates alerts
     for (src_ip, dst_ip), dst_port in port_count_dict.items():
         if len(dst_port) > port_scan_threshold:
             print(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port}")
@@ -59,9 +80,16 @@ def analyze_file(path: str, port_scan_threshold: int = 5):
         else:
             print(f"INFO: {src_ip} to {dst_ip} used {dst_port} distinct ports")
 
-parser = argparse.ArgumentParser()
-parser.add_argument("input_path", type=str, help="Path to input log file")
-args = parser.parse_args()
+def analyze_periodically(path: str, interval_time: int = 60):
+    while True:
+        print("\n--- Running IDS ---")
+        analyze_file(path)
+        print("Waiting for next time interval...\n")
+        time.sleep(interval_time)
 
 if __name__ == "__main__":
-    analyze_file(args.input_path)
+    parser = argparse.ArgumentParser()
+    parser.add_argument("input_path", type=str, help="Path to input log file")
+    args = parser.parse_args()
+
+    analyze_periodically(args.input_path, interval_time=60)
