@@ -18,10 +18,8 @@ MAIN THESIS PROJECT FILE
     - For each (src_ip, dst_ip) pair, if the count exceeds the threshold, print an alert like:
         ALERT: possible port scan from 10.0.0.5 to 10.0.0.10 (7 ports)
     - That gives you a minimal IDS prototype on synthetic logs.
-"""
-from pprint import pprint
 
-"""Step 1: Open Log file, read and assign the relevant information to variables"""
+Step 1: Open Log file, read and assign the relevant information to variables
 # # Open Log file, read and assign the relevant information to variables
 # with open("data/traffic_dev.log", "r") as file:
 #     for line in file:
@@ -31,24 +29,39 @@ from pprint import pprint
 #         dst_ip = splitLine[2]
 #         dst_port = splitLine[3]
 #         print(f"SRC {src_ip} -> DST {dst_ip}:{dst_port} at {timestamp}")
+Step 2: Counting for distinct ports
+Step 3: Create an alert rule
+"""
+import argparse
 
-"""Step 2: Counting for distinct ports"""
-# We basically want to know, for each pair src_ip, dst_ip, how many different ports were contacted.
-# If the src_ip to dst_ip pair exists, add to the value.
-# If the src_ip to dst_ip pair does not exist, create a new value.
+def analyze_file(path: str, port_scan_threshold: int = 5):
+    """Step 2: Counting for distinct ports"""
+    port_count_dict = {}
 
-PortCountDict = {}
+    with open(path, "r") as file:
+        for line in file:
+            split_line = line.rstrip("\n").split(",")
+            timestamp = split_line[0]
+            src_ip = split_line[1]
+            dst_ip = split_line[2]
+            dst_port = split_line[3]
+            if (src_ip, dst_ip) not in port_count_dict:
+                port_count_dict[src_ip, dst_ip] = {int(dst_port)}
+            else:
+                port_count_dict[src_ip, dst_ip].add(int(dst_port))
 
-with open("data/traffic_dev.log", "r") as file:
-    for line in file:
-        splitLine = line.rstrip("\n").split(",")
-        timestamp = splitLine[0]
-        src_ip = splitLine[1]
-        dst_ip = splitLine[2]
-        dst_port = splitLine[3]
-        if (src_ip, dst_ip) not in PortCountDict:
-            PortCountDict[src_ip, dst_ip] = {int(dst_port)}
+    """Step 3: Create an alert rule"""
+    for (src_ip, dst_ip), dst_port in port_count_dict.items():
+        if len(dst_port) > port_scan_threshold:
+            print(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port}")
+            with open("alerts.log", "a") as file:
+                file.write(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port}\n")
         else:
-            PortCountDict[src_ip, dst_ip].add(int(dst_port))
+            print(f"INFO: {src_ip} to {dst_ip} used {dst_port} distinct ports")
 
-pprint(PortCountDict)
+parser = argparse.ArgumentParser()
+parser.add_argument("input_path", type=str, help="Path to input log file")
+args = parser.parse_args()
+
+if __name__ == "__main__":
+    analyze_file(args.input_path)
