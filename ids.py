@@ -51,7 +51,7 @@ Step 3: Create an alert rule
         - That gives you a minimal IDS prototype on synthetic logs.
 """
 
-"COUNTING TOTAL CONNECTIONS PER SRC_IP FEATURE"
+"COUNTING TOTAL CONNECTIONS PER SRC_IP FEATURE - done"
 """
 For this feature, we want to look at the same parsed data, but answer a different question
 - Which source IPs are talking a lot overall in this interval?
@@ -82,7 +82,19 @@ Flow Chart of the functionality:
     7. If the value for src_ip:volume pair in the src_volume dictionary passes 5, create an alert for that run.
 """
 
-"WIRESHARK LOG FILE IMPLEMENTATION"
+"WIRESHARK LOG FILE IMPLEMENTATION - done"
+"""
+1. Download Wireshark on laptop - done
+2. Create some logs with it - traffic_wireshark_test.csv downloaded
+3. Make sure the def analyze_file is configured properly for Wireshark implementation 
+4. Figure out how to get the log files from Wireshark
+5. Figure out the structure Wireshark uses for its log files
+6. Adjust the code to be able to read and analyze Wireshark logs.
+
+Using tshark to get specific logs with the following command that: 
+tshark.exe -i 4 -T fields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.dstport -E header=n -E separator=, -E quote=n
+-E occurrence=f >> 'C:\Users\leven\PycharmProjects\PythonProject\data\traffic_dev_TEST.log'
+"""
 
 "WEB INTERFACE IMPLEMENTATION"
 
@@ -95,19 +107,22 @@ import time
 
 # General variables used.
 state_path = "data/state.json"
+alert_path = "data/alerts.log"
+
 port_count_dict = {}
 src_volume_dict = {}
+
 port_scan_threshold = 5
 volume_threshold = 5
 
-# Function for reading last offset, seeking, reading new lines, and basic parsing into events
+# Reading last offset, seeking, reading new lines, and basic parsing into events
 def analyze_file(path):
-    global port_count_dict
+    global port_count_dict, src_volume_dict
     port_count_dict = {}
-    global src_volume_dict
     src_volume_dict = {}
-    # Read last position
-    with open(state_path, "r") as f: # Read last position
+
+    # Read last position (Defaults to 0 if the file is empty/missing)
+    with open(state_path, "r") as f:
         line = f.readline().strip()
         previous_position = int(line) if line else 0
 
@@ -126,10 +141,19 @@ def analyze_file(path):
             src_ip = split_line[1]
             dst_ip = split_line[2]
             dst_port = split_line[3]
+
+            # For port_count_dict dictionary
+            if not dst_port:
+                continue
+            try:
+                dst_port_int = int(dst_port)
+            except ValueError:
+                continue
+
             if (src_ip, dst_ip) not in port_count_dict:
-                port_count_dict[src_ip, dst_ip] = {int(dst_port)}
+                port_count_dict[src_ip, dst_ip] = {dst_port_int}
             else:
-                port_count_dict[src_ip, dst_ip].add(int(dst_port))
+                port_count_dict[src_ip, dst_ip].add(dst_port_int)
 
             # For src_volume_dict dictionary
             if src_ip not in src_volume_dict:
@@ -137,31 +161,30 @@ def analyze_file(path):
             else:
                 src_volume_dict[src_ip] += 1
 
-        # Variable for last position read in the log file
         offset = file.tell()
 
     # Write the last position to state.json
-    with open("data/state.json", "w") as f:
+    with open(state_path, "w") as f:
         f.write(str(offset))
 
 # Function for counting unique port scans and alerting
 def analyze_port_count():
     # Analyzes and creates alerts
-    for (src_ip, dst_ip), dst_port in port_count_dict.items():
+    for (src_ip, dst_ip), dst_port_int in port_count_dict.items():
         # Counts the amount of ports a pair of src_ip and dst_ip and creates an alert.
-        if len(dst_port) > port_scan_threshold:
-            print(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port}")
-            with open("alerts.log", "a") as file:
-                file.write(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port}\n")
+        if len(dst_port_int) > port_scan_threshold:
+            print(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port_int}")
+            with open(alert_path, "a") as file:
+                file.write(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port_int}\n")
         else:
-            print(f"INFO: {src_ip} to {dst_ip} used {dst_port} distinct ports")
+            print(f"INFO: {src_ip} to {dst_ip} used {dst_port_int} distinct ports")
 
 def analyze_connection_count():
     for src_ip, volume in src_volume_dict.items():
         # Checks if the volume is above the threshold, and creates an alert.
         if volume > volume_threshold:
             print(f"ALERT: High connection volume from {src_ip} - {volume} times")
-            with open("alerts.log", "a") as file:
+            with open(alert_path, "a") as file:
                 file.write(f"ALERT: High connection volume from {src_ip} - {volume} times\n")
         else:
             print(f"INFO: {src_ip} tried to connect {volume} times")
@@ -172,6 +195,7 @@ def analyze_periodically(path: str, interval_time: int = 60):
         print("\n--- Running IDS ---")
         analyze_file(path)
         analyze_port_count()
+        analyze_connection_count()
         print("Waiting for next time interval...\n")
         time.sleep(interval_time)
 

@@ -1,0 +1,150 @@
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.50 to 10.0.0.10: {80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: High connection volume from 10.0.0.5 - 9 times
+ALERT: High connection volume from 10.0.0.100 - 10 times
+ALERT: possible port scan from 10.0.0.5 to 10.0.0.10: {110, 80, 8080, 21, 22, 23, 25, 443}
+ALERT: High connection volume from 10.0.0.5 - 9 times
+ALERT: High connection volume from 10.0.0.100 - 10 times
+ALERT: High connection volume from 208.103.161.1 - 26 times
+ALERT: High connection volume from 192.168.0.4 - 565 times
+ALERT: High connection volume from 142.250.75.42 - 39 times
+ALERT: High connection volume from 162.159.61.4 - 83 times
+ALERT: High connection volume from 140.82.121.6 - 21 times
+ALERT: High connection volume from 142.250.75.163 - 8 times
+ALERT: High connection volume from 162.55.98.14 - 23 times
+ALERT: High connection volume from 104.17.108.108 - 7 times
+ALERT: High connection volume from 104.18.27.48 - 445 times
+ALERT: High connection volume from 142.250.75.164 - 58 times
+ALERT: High connection volume from 142.250.75.132 - 50 times
+ALERT: High connection volume from 52.222.149.64 - 13 times
+ALERT: High connection volume from 142.250.75.68 - 15 times
+ALERT: High connection volume from 142.250.75.100 - 25 times
+ALERT: High connection volume from 142.250.75.106 - 18 times
+ALERT: High connection volume from 151.101.193.91 - 6 times
+ALERT: High connection volume from 208.103.161.1 - 31 times
+ALERT: High connection volume from 192.168.0.4 - 361 times
+ALERT: High connection volume from 162.159.61.4 - 47 times
+ALERT: High connection volume from 162.55.83.113 - 86 times
+ALERT: High connection volume from 142.250.75.42 - 15 times
+ALERT: High connection volume from 52.222.149.128 - 8 times
+ALERT: High connection volume from 140.82.121.5 - 23 times
+ALERT: High connection volume from 104.18.27.48 - 181 times
+ALERT: High connection volume from 142.250.75.202 - 6 times
+ALERT: High connection volume from 142.250.75.164 - 34 times
+ALERT: High connection volume from 142.250.75.100 - 17 times
+ALERT: High connection volume from 52.222.149.64 - 14 times
+ALERT: High connection volume from 142.250.75.133 - 20 times
+ALERT: High connection volume from 162.55.83.113 - 17 times
+ALERT: High connection volume from 192.168.0.4 - 991 times
+ALERT: High connection volume from 208.103.161.1 - 24 times
+ALERT: High connection volume from 104.18.27.48 - 461 times
+ALERT: High connection volume from 142.250.75.42 - 15 times
+ALERT: High connection volume from 140.82.121.5 - 30 times
+ALERT: High connection volume from 104.17.107.108 - 7 times
+ALERT: High connection volume from 142.250.75.164 - 62 times
+ALERT: High connection volume from 162.159.61.4 - 131 times
+ALERT: High connection volume from 142.250.75.100 - 15 times
+ALERT: High connection volume from 142.250.75.68 - 38 times
+ALERT: High connection volume from 142.250.75.132 - 40 times
+ALERT: High connection volume from 142.250.75.202 - 6 times
+ALERT: High connection volume from 52.222.149.65 - 11 times
+ALERT: High connection volume from 52.222.149.6 - 16 times
+ALERT: High connection volume from 142.250.75.36 - 485 times
+ALERT: High connection volume from 172.67.185.25 - 20 times
+ALERT: High connection volume from 142.250.75.195 - 12 times
+ALERT: High connection volume from 142.250.75.34 - 29 times
+ALERT: High connection volume from 151.101.1.91 - 27 times
+ALERT: High connection volume from 151.101.65.91 - 34 times
+ALERT: High connection volume from 142.250.75.163 - 16 times
+ALERT: High connection volume from 52.123.129.14 - 41 times
+ALERT: High connection volume from 172.67.75.39 - 61 times
+ALERT: High connection volume from 192.168.0.4 - 321 times
+ALERT: High connection volume from 172.67.75.39 - 32 times
+ALERT: High connection volume from 208.103.161.1 - 47 times
+ALERT: High connection volume from 162.55.83.113 - 24 times
+ALERT: High connection volume from 142.250.75.42 - 46 times
+ALERT: High connection volume from 142.250.75.164 - 7 times
+ALERT: High connection volume from 142.250.75.68 - 8 times
+ALERT: High connection volume from 143.204.194.20 - 15 times
+ALERT: High connection volume from 140.82.121.6 - 24 times
+ALERT: High connection volume from 104.18.27.48 - 35 times
+ALERT: High connection volume from 18.245.199.31 - 13 times
+ALERT: High connection volume from 34.107.243.93 - 19 times
+ALERT: High connection volume from 162.159.61.4 - 21 times
+ALERT: High connection volume from 151.101.193.91 - 12 times
+ALERT: High connection volume from 151.101.65.91 - 9 times
+ALERT: High connection volume from 52.222.149.47 - 9 times
+ALERT: High connection volume from 192.168.0.4 - 414 times
+ALERT: High connection volume from 162.55.83.113 - 27 times
+ALERT: High connection volume from 172.67.185.25 - 7 times
+ALERT: High connection volume from 208.103.161.1 - 20 times
+ALERT: High connection volume from 104.18.27.48 - 394 times
+ALERT: High connection volume from 162.159.61.4 - 42 times
+ALERT: High connection volume from 142.250.75.78 - 28 times
+ALERT: High connection volume from 142.250.75.100 - 6 times
+ALERT: High connection volume from 142.250.75.132 - 6 times
+ALERT: High connection volume from 151.101.1.91 - 10 times
+ALERT: High connection volume from 151.101.65.91 - 20 times
+ALERT: High connection volume from 140.82.121.6 - 10 times
+ALERT: High connection volume from 142.250.75.138 - 20 times
+ALERT: possible port scan from 140.82.121.6 to 192.168.0.4: {41961, 41964, 52686, 52692, 52695, 41951}
+ALERT: High connection volume from 208.103.161.1 - 148 times
+ALERT: High connection volume from 192.168.0.4 - 2653 times
+ALERT: High connection volume from 142.250.75.42 - 118 times
+ALERT: High connection volume from 162.159.61.4 - 324 times
+ALERT: High connection volume from 151.101.65.91 - 68 times
+ALERT: High connection volume from 151.101.1.91 - 46 times
+ALERT: High connection volume from 140.82.121.6 - 55 times
+ALERT: High connection volume from 142.250.75.163 - 32 times
+ALERT: High connection volume from 162.55.98.14 - 23 times
+ALERT: High connection volume from 104.17.108.108 - 7 times
+ALERT: High connection volume from 104.18.27.48 - 1516 times
+ALERT: High connection volume from 142.250.75.164 - 166 times
+ALERT: High connection volume from 142.250.75.132 - 101 times
+ALERT: High connection volume from 52.222.149.64 - 27 times
+ALERT: High connection volume from 142.250.75.68 - 66 times
+ALERT: High connection volume from 142.250.75.100 - 68 times
+ALERT: High connection volume from 142.250.75.78 - 30 times
+ALERT: High connection volume from 142.250.75.106 - 18 times
+ALERT: High connection volume from 34.107.243.93 - 24 times
+ALERT: High connection volume from 151.101.193.91 - 21 times
+ALERT: High connection volume from 104.17.107.108 - 15 times
+ALERT: High connection volume from 162.55.83.113 - 154 times
+ALERT: High connection volume from 52.222.149.128 - 8 times
+ALERT: High connection volume from 140.82.121.5 - 53 times
+ALERT: High connection volume from 142.250.75.202 - 12 times
+ALERT: High connection volume from 74.125.133.84 - 9 times
+ALERT: High connection volume from 142.250.75.133 - 33 times
+ALERT: High connection volume from 52.222.149.65 - 12 times
+ALERT: High connection volume from 52.222.149.6 - 16 times
+ALERT: High connection volume from 142.250.75.36 - 489 times
+ALERT: High connection volume from 172.67.185.25 - 27 times
+ALERT: High connection volume from 142.250.75.195 - 16 times
+ALERT: High connection volume from 142.250.75.34 - 32 times
+ALERT: High connection volume from 52.123.129.14 - 41 times
+ALERT: High connection volume from 172.67.75.39 - 95 times
+ALERT: High connection volume from 143.204.194.20 - 15 times
+ALERT: High connection volume from 18.245.199.31 - 13 times
+ALERT: High connection volume from 52.222.149.47 - 12 times
+ALERT: High connection volume from 142.250.75.138 - 20 times
