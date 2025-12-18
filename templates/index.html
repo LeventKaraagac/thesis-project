@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Lightweight IDS Alerts</title>
+        <meta http-equiv="refresh" content="10">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+            }
+            table {
+                margin: 20px auto;
+                border-collapse: collapse;
+            }
+            th, td {
+                border: 1px solid #333;
+                padding: 4px 8px;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Recent IDS Alerts</h1>
+        {% if alerts %}
+        <table>
+            <tr>
+                <th>Time</th>
+                <th>Rule</th>
+                <th>Source IP</th>
+                <th>Destination IP</th>
+                <th>Details</th>
+            </tr>
+            {% for a in alerts %}
+            <tr>
+                <td>{{ a.timestamp }}</td>
+                <td>{{ a.rule }}</td>
+                <td>{{ a.src }}</td>
+                <td>{{ a.dst }}</td>
+                <td>{{ a.details }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+            <p>No alerts yet.</p>
+        {% endif %}
+    </body>
+</html>

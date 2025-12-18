@@ -93,17 +93,31 @@ Flow Chart of the functionality:
 
 Using tshark to get specific logs with the following command that: 
 tshark.exe -i 4 -T fields -e frame.time_epoch -e ip.src -e ip.dst -e tcp.dstport -E header=n -E separator=, -E quote=n
--E occurrence=f >> 'C:\Users\leven\PycharmProjects\PythonProject\data\traffic_dev_TEST.log'
+-E occurrence=f >> 'C:\ Users\leven\PycharmProjects\PythonProject\data\traffic_dev_TEST.log'
 """
 
 "WEB INTERFACE IMPLEMENTATION"
+"""
+Simple Flask can be used for web interface representation.
+1. import flask package
+2. Create app.py and create a simple object with flask.
+    Example:
+    from flask import Flask, render_template, request
+    app = Flask(__name__)  # Flask constructor
+    @app.route('/')
+    def index():
+        return render_template("index.html")
+3. Create a simple function in ids.py for sending the alerts to the flask app.
+4. edit index.html for the connection in between the function and the table.
+"""
 
 "VM DEPLOYMENT AND INTEGRATION"
 
-"TIMESTAMP FUNCTIONALITY ON THE ALERTS ?"
+"TIMESTAMP FUNCTIONALITY ON THE ALERTS - done and added with Flask"
 
 import argparse
 import time
+from datetime import datetime
 
 # General variables used.
 state_path = "data/state.json"
@@ -113,7 +127,7 @@ port_count_dict = {}
 src_volume_dict = {}
 
 port_scan_threshold = 5
-volume_threshold = 5
+volume_threshold = 100
 
 # Reading last offset, seeking, reading new lines, and basic parsing into events
 def analyze_file(path):
@@ -173,19 +187,18 @@ def analyze_port_count():
     for (src_ip, dst_ip), dst_port_int in port_count_dict.items():
         # Counts the amount of ports a pair of src_ip and dst_ip and creates an alert.
         if len(dst_port_int) > port_scan_threshold:
-            print(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port_int}")
-            with open(alert_path, "a") as file:
-                file.write(f"ALERT: possible port scan from {src_ip} to {dst_ip}: {dst_port_int}\n")
+            details = f"distinct ports={sorted(dst_port_int)}"
+            log_alert("PORT_SCAN", src_ip, dst_ip, details)
         else:
             print(f"INFO: {src_ip} to {dst_ip} used {dst_port_int} distinct ports")
 
+# Function for analyzing connection count per source ip
 def analyze_connection_count():
     for src_ip, volume in src_volume_dict.items():
         # Checks if the volume is above the threshold, and creates an alert.
         if volume > volume_threshold:
-            print(f"ALERT: High connection volume from {src_ip} - {volume} times")
-            with open(alert_path, "a") as file:
-                file.write(f"ALERT: High connection volume from {src_ip} - {volume} times\n")
+            details = f"connections={volume} in interval"
+            log_alert("HIGH_VOLUME", src_ip, None, details)
         else:
             print(f"INFO: {src_ip} tried to connect {volume} times")
 
@@ -198,6 +211,13 @@ def analyze_periodically(path: str, interval_time: int = 60):
         analyze_connection_count()
         print("Waiting for next time interval...\n")
         time.sleep(interval_time)
+
+def log_alert(rule: str, src_ip: str, dst_ip: str | None, details: str) -> None:
+    ts = datetime.now().isoformat(timespec="seconds")
+    line = f"{ts} | {rule} | {src_ip} | {dst_ip or '-'} | {details}"
+    print(line)
+    with open(alert_path, "a") as file:
+        file.write(line + "\n")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

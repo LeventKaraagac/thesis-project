@@ -148,3 +148,43 @@ ALERT: High connection volume from 143.204.194.20 - 15 times
 ALERT: High connection volume from 18.245.199.31 - 13 times
 ALERT: High connection volume from 52.222.149.47 - 12 times
 ALERT: High connection volume from 142.250.75.138 - 20 times
+ALERT: possible port scan from 140.82.121.6 to 192.168.0.4: {41961, 41964, 52686, 52692, 52695, 41951}
+ALERT: High connection volume from 208.103.161.1 - 148 times
+ALERT: High connection volume from 192.168.0.4 - 2653 times
+ALERT: High connection volume from 142.250.75.42 - 118 times
+ALERT: High connection volume from 162.159.61.4 - 324 times
+ALERT: High connection volume from 104.18.27.48 - 1516 times
+ALERT: High connection volume from 142.250.75.164 - 166 times
+ALERT: High connection volume from 142.250.75.132 - 101 times
+ALERT: High connection volume from 162.55.83.113 - 154 times
+ALERT: High connection volume from 142.250.75.36 - 489 times
+2025-12-18T22:15:55 | PORT_SCAN | 140.82.121.6 | 192.168.0.4 | distinct ports=[41951, 41961, 41964, 52686, 52692, 52695]
+2025-12-18T22:15:55 | HIGH_VOLUME | 208.103.161.1 | - | connections=148 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 192.168.0.4 | - | connections=2653 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 142.250.75.42 | - | connections=118 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 162.159.61.4 | - | connections=324 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 104.18.27.48 | - | connections=1516 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 142.250.75.164 | - | connections=166 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 142.250.75.132 | - | connections=101 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 162.55.83.113 | - | connections=154 in interval
+2025-12-18T22:15:55 | HIGH_VOLUME | 142.250.75.36 | - | connections=489 in interval
+2025-12-18T22:16:36 | PORT_SCAN | 140.82.121.6 | 192.168.0.4 | distinct ports=[41951, 41961, 41964, 52686, 52692, 52695]
+2025-12-18T22:16:36 | HIGH_VOLUME | 208.103.161.1 | - | connections=148 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 192.168.0.4 | - | connections=2653 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 142.250.75.42 | - | connections=118 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 162.159.61.4 | - | connections=324 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 104.18.27.48 | - | connections=1516 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 142.250.75.164 | - | connections=166 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 142.250.75.132 | - | connections=101 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 162.55.83.113 | - | connections=154 in interval
+2025-12-18T22:16:36 | HIGH_VOLUME | 142.250.75.36 | - | connections=489 in interval
+2025-12-18T22:32:36 | PORT_SCAN | 140.82.121.6 | 192.168.0.4 | distinct ports=[41951, 41961, 41964, 52686, 52692, 52695]
+2025-12-18T22:32:36 | HIGH_VOLUME | 208.103.161.1 | - | connections=148 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 192.168.0.4 | - | connections=2653 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 142.250.75.42 | - | connections=118 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 162.159.61.4 | - | connections=324 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 104.18.27.48 | - | connections=1516 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 142.250.75.164 | - | connections=166 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 142.250.75.132 | - | connections=101 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 162.55.83.113 | - | connections=154 in interval
+2025-12-18T22:32:36 | HIGH_VOLUME | 142.250.75.36 | - | connections=489 in interval
